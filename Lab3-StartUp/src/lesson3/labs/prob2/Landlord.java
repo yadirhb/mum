@@ -22,7 +22,7 @@ public class Landlord {
 		return result;
 	}
 	
-	static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception {
 		Appartment a1 = new Appartment(1, 450.0);
 		Appartment a2 = new Appartment(2, 500);
 		List<Appartment> b1Appartments = new LinkedList<>();
