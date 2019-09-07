@@ -1,10 +1,11 @@
 package lesson3.labs.prob4;
 
-public class Condo  {
+public class Condo extends Property {
 
 	private int numberOfFloors;
 	
-	public Condo(int numberOfFloors) {
+	public Condo(Address address, int numberOfFloors) {
+		super(address);
 		this.numberOfFloors = numberOfFloors;
 	}
 

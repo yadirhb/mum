@@ -1,22 +1,24 @@
 package lesson3.labs.prob4;
 
+import java.util.*;
+
 public class Admin {
-	public static double computeTotalRent(Object[] properties) {
+	// This can be another solution
+	public static double computeTotalRent(Property[] properties) {
 		double totalRent = 0;
-		for (Object o : properties) {
-			if (o instanceof House) {
-				House h = (House) o;
-				totalRent += h.computeRent();
-			}
-			else if (o instanceof Condo) {
-				Condo h = (Condo) o;
-				totalRent += h.computeRent();
-			}
-			else if (o instanceof Trailer) {
-				Trailer h = (Trailer) o;
-				totalRent += h.computeRent();
-			}	
+		for (Property p : properties) {
+			totalRent += p.computeRent();
 		}
 		return totalRent;
+	}
+
+	public static Property[] getPropertysByCity(Property[] properties, String cityName) {
+		List<Property> cities = new LinkedList<Property>();
+		for (Property p : properties) {
+			String city = p.getAddress().getCity();
+			if (city != null && city.equals(cityName))
+				cities.add(p);
+		}
+		return cities.toArray(new Property[cities.size()]);
 	}
 }

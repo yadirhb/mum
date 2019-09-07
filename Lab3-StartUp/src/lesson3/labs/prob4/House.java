@@ -1,11 +1,12 @@
 package lesson3.labs.prob4;
 
-public class House  {
+public class House extends Property  {
 
 	private double lotSize;
 	
 	
-	public House(double lotSize) {
+	public House(Address address, double lotSize) {
+		super(address);
 		this.lotSize = lotSize;
 	}
 
