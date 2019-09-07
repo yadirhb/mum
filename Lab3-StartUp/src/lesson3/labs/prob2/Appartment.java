@@ -1,22 +1,20 @@
 package lesson3.labs.prob2;
 
-import java.util.List;
-
 public class Appartment {
-	private String name;
-	private List<RentRecord> records;
+	private int number;
+	private double rent;
 	
-	Appartment(String name){
-		this.name = name;
+	Appartment(int number, double rent){
+		this.number = number;
+		this.rent = rent;
 	}
 
-	public String getName() {
-		return name;
+	public int getNumber() {
+		return number;
 	}
 
-	public List<RentRecord> getRecords() {
-		return records;
+	public double getRent() {
+		return this.rent;
 	}
-	
 	
 }
