@@ -44,12 +44,12 @@ public class Main {
                 .filter(visitResult -> visitResult.getType() == ResultType.Lab)
                 .collect(Collectors.groupingBy(o -> ((Lab) o).getId(),  Collectors.counting()))
                 .entrySet().stream()
-                .sorted((e1, e2) -> e2.getValue().intValue() - e1.getValue().intValue())
-                .limit(1).map(e -> e.getKey()).findFirst();
+                .max((e1, e2) -> e2.getValue().intValue() - e1.getValue().intValue())
+                .map(e -> e.getKey());
 
         BiFunction<Hospital, Long, Long> amountOfDoctors = (h, med) -> h.getDepartments().stream()
                 .flatMap(department -> department.getDoctorList().stream())
-                .filter(doctor -> doctor.getVisitList().stream().filter(visit -> visit.getResults().stream().filter(visitResult -> visitResult.getType() == ResultType.Medication && ((Medication) visitResult).getId() == med ).count() > 0).count() > 0)
+                .filter(doctor -> doctor.getVisitList().stream().anyMatch(visit -> visit.getResults().stream().anyMatch(visitResult -> visitResult.getType() == ResultType.Medication && ((Medication) visitResult).getId() == med )))
                 .count();
 
         int r = sumSquares.process(1, 2, 3);
