@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiFunction;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -33,5 +35,14 @@ public class School {
         BiFunction<School, Long, List<Student>> getTop10 = (s, score) -> getGroupStudentsAndScore.apply(s, score)
                 .sorted((s1, s2) -> s2.getValue() - s1.getValue())
                 .limit(10).map(e -> e.getKey()).collect(Collectors.toList());
+
+        Predicate<Grade> getIfFailed = (grade) -> grade.getEvaluation() != Evaluation.A && grade.getEvaluation() != Evaluation.B;
+
+        Function<School, Optional<Course>> getWorseCourse = (school) -> school.getTeacherList().stream()
+                .flatMap(teacher -> teacher.getGrades().stream())
+                .filter(grade -> getIfFailed.test(grade))
+                .collect(Collectors.groupingBy(Grade::getCourse, Collectors.counting())).entrySet().stream()
+                .max((e1, e2) -> e2.getValue().intValue() - e1.getValue().intValue())
+                .map(entry -> entry.getKey());
     }
 }
