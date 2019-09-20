@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -30,7 +29,7 @@ public class Main {
                 .sorted((doc1, doc2) -> doc2.getAge() - doc1.getAge()).limit(k)
                 .map(doctor -> doctor.getName().toUpperCase()).collect(Collectors.toList());
 
-        BiFunction<Hospital, Patient, Optional<Doctor>> oldestDocWhoAttendedPatient = (h, p) -> h.getDepartments().stream()
+        BiFunction<Hospital, PatientO, Optional<Doctor>> oldestDocWhoAttendedPatient = (h, p) -> h.getDepartments().stream()
                 .flatMap(department -> department.getDoctorList().stream())
                 .filter(doctor -> doctor.getVisitList().stream().filter(visit -> visit.getPatient().equals(p)).count() > 0)
                 .sorted((doc1, doc2) -> doc2.getAge() - doc1.getAge())
@@ -42,14 +41,14 @@ public class Main {
                 .flatMap(doctor -> doctor.getVisitList().stream())
                 .flatMap(visit -> visit.getResults().stream())
                 .filter(visitResult -> visitResult.getType() == ResultType.Lab)
-                .collect(Collectors.groupingBy(o -> ((Lab) o).getId(),  Collectors.counting()))
+                .collect(Collectors.groupingBy(o -> ((LabO) o).getId(),  Collectors.counting()))
                 .entrySet().stream()
                 .max((e1, e2) -> e2.getValue().intValue() - e1.getValue().intValue())
                 .map(e -> e.getKey());
 
         BiFunction<Hospital, Long, Long> amountOfDoctors = (h, med) -> h.getDepartments().stream()
                 .flatMap(department -> department.getDoctorList().stream())
-                .filter(doctor -> doctor.getVisitList().stream().anyMatch(visit -> visit.getResults().stream().anyMatch(visitResult -> visitResult.getType() == ResultType.Medication && ((Medication) visitResult).getId() == med )))
+                .filter(doctor -> doctor.getVisitList().stream().anyMatch(visit -> visit.getResults().stream().anyMatch(visitResult -> visitResult.getType() == ResultType.Medication && ((MedicationO) visitResult).getId() == med )))
                 .count();
 
         int r = sumSquares.process(1, 2, 3);

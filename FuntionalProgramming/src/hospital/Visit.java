@@ -4,10 +4,10 @@ import java.util.List;
 
 public class Visit {
     Doctor doctor;
-    Patient patient;
+    PatientO patient;
     List<VisitResult> results;
 
-    public Visit(Doctor d, Patient p) {
+    public Visit(Doctor d, PatientO p) {
         this.doctor = d;
         this.patient = p;
     }
@@ -16,7 +16,7 @@ public class Visit {
         return doctor;
     }
 
-    public Patient getPatient() {
+    public PatientO getPatient() {
         return patient;
     }
 

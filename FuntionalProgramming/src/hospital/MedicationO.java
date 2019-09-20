@@ -1,6 +1,6 @@
 package hospital;
 
-public class Medication extends VisitResult {
+public class MedicationO extends VisitResult {
 
     @Override
     public ResultType getType() {
